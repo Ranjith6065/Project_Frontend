@@ -1,0 +1,45 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary px-5 py-3 fixed-top">
+    <div class="container-fluid">
+       <div>
+        <a class="navbar-brand" href="#">
+          <img src="../assets/img/rename.png" alt="Bootstrap" class="img-fluid logo">
+        </a>
+        <a class="ps-4 brand">Welcome ,<b>{{ userName }}</b></a>
+       </div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="/ClubmanPage">Home</a>
+          </li>
+          <li class="nav-item dropdown" >
+            <button class="dropdown-btn" aria-haspopup="menu">
+              <span class="me-2">About</span>
+              <span class="arrow"></span>
+            </button>
+            <ul class="dropdown-content" role="menu">
+              <li style="--delay: 1;"><a href="/Management">Management</a></li>
+              <li style="--delay: 2;"><a href="/Team">Team</a></li>
+            
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/Products">Products</a>
+          </li>
+          <li class="nav-item logout"(click)="logout()">
+           logout
+          </li>
+          
+        
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+  <div >
+   
+  </div>

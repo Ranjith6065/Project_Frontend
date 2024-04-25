@@ -1,0 +1,83 @@
+<nav class="navbar bg-body-tertiary">
+    <div class="container">
+    </div>
+  </nav>
+  <div class="container">
+      <div class="row">
+        <!-- <div class="bg-image">
+
+        </div> -->
+        <div class="bg-image">
+            <div class="row">
+            <div class="col-md-3 px-5 ">
+            </div>
+            <div class="col-md-6 mt-5">
+             <div class="content px-5 mt-5">
+                <h2 style="text-align: center;">REGISTER</h2>
+                <div class="row">
+                  
+                <div class="col-md-6">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Name</mat-label>
+                      <input matInput required  [(ngModel)]="model.Name" minlength="3" maxlength="40"
+                        pattern="[A-Za-z]*" (blur)="onblur($event,'Name')" />
+                    </mat-form-field>
+                  </div>    
+                  
+                <div class="col-md-6">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Email ID</mat-label>
+                      <input matInput required type="email"  [(ngModel)]="model.Email"  pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$" (blur)="onblur($event,'Email')"  required>
+                    </mat-form-field>
+                  </div>  
+                  
+    <div class="col-md-6">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Contact No.</mat-label>
+          <input matInput type="tel" minlength="10" maxlength="12" [(ngModel)]="model.Phoneno" min="0" required
+          oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+          (blur)="onblur($event,'Phone')" />
+        </mat-form-field>
+      </div>
+
+      <div class="col-md-6">
+        <mat-form-field appearance="outline">
+          <mat-label>Date of Birth</mat-label>
+          <input matInput required [matDatepicker]="sdb" [min]="minDate" [max]="maxDate" readonly
+            [(ngModel)]="model.DOB" name="SDateOfBirth" >
+          <mat-datepicker-toggle matSuffix [for]="sdb"></mat-datepicker-toggle>
+          <mat-datepicker #sdb></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+                  <div class="col-md-6">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Password</mat-label>
+                      <input matInput [type]="showPassword ? 'text' : 'password'"  pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$" (blur)="validatePassword($event)" 
+                      required [(ngModel)]="model.Password"  required>
+                      <mat-icon matSuffix (click)="togglePasswordVisibility()">
+                          {{showPassword?'visibility_off':'visibility'}}
+                      </mat-icon>               
+                     </mat-form-field>
+                  </div>     
+
+                  <div class="col-md-6">
+                      <mat-form-field class="example-full-width" appearance="outline">
+                          <mat-label>Confrim Password</mat-label>
+                          <input matInput [type]="showPassword ? 'text' : 'password'"   [(ngModel)]="model.ConfrimPassword" (blur)="validateConfrimPassword($event)" required>
+                          <mat-icon matSuffix (click)="togglePasswordVisibility()">
+                              {{showPassword?'visibility_off':'visibility'}}
+                          </mat-icon>
+                        </mat-form-field>
+                  </div>
+                </div>
+                <button mat-raised-button class="mb-3" (click)="onSubmit()">SIGNUP</button>
+                <p>Already Have a Account ? <a href="LoginPage">Login</a> </p>
+             </div>
+    
+            </div>
+        </div>
+        </div>
+      </div>
+  </div>
+  

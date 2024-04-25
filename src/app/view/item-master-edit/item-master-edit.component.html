@@ -1,0 +1,381 @@
+<!-- <form [formGroup]="myGroup"> -->
+<mat-card>
+  <form #postForm="ngForm"></form>
+  <mat-card-title>
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-10">
+          <h1 class="center">Item Master</h1>
+        </div>
+        <div class="col-md-2">
+          <div class="row">
+            <div class="col-md-3">
+              <button mat-icon-button style="background-color:white;color:orange" type="submit" [disabled]="IsVoid == 'true'||_beforeTax" (click)="onSubmit()">
+                <mat-icon>add</mat-icon>   
+              </button>
+            </div>
+            <div class="col-md-3" *ngIf="IsUpdate == 'true' && IsVoid == 'false'">
+                <button mat-icon-button style="background-color:white;color:red" [disabled]="_beforeTax" (click)="onVoid()">
+                  <mat-icon>delete</mat-icon>   
+                </button>
+              </div>
+            <div class="col-md-3" *ngIf="IsUpdate == 'true' && IsVoid == 'true'">
+                <button mat-icon-button style="background-color:white;color:red" (click)="onVoid()">
+                  <mat-icon>delete</mat-icon>   
+                </button>
+              </div>
+              <div class="col-md-3">
+                  <button mat-icon-button style="background-color:white;color:greenyellow" (click)="onClear('yes')">
+                    <mat-icon>autorenew</mat-icon>   
+                  </button>
+                </div>
+                <div class="col-md-3">
+                    <button mat-icon-button style="background-color:white;color:skyblue" (click)="onBack()">
+                      <mat-icon>keyboard_backspace</mat-icon>   
+                    </button>
+                  </div>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+    
+  </mat-card-title>
+
+  <mat-card-content>
+    <div>
+      <div class="col-md-12">
+        <fieldset>
+          <div class="row">
+            <div class="col-md-4">
+                <div class="row">
+      
+                  <!-- <div class="col-md-4">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Item Id</mat-label>
+                      <input matInput readonly type="text" formControlName="ItemId" />
+                    </mat-form-field>
+                  </div> -->
+      
+                  <div class="col-md-12">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Item Description</mat-label>
+                      <input matInput required placeholder="Ex. Dosa" [(ngModel)]="model.ItemDescription" minlength="3"
+                        name="ItemDescription" id="ItemDescription" autocomplete="off" [typeahead]="ItemList" [disabled]="_beforeTax"
+                        typeaheadOptionField="ItemDescription" pattern="[A-Za-z0-9 ]*"
+                        (blur)="onblurItemDescription($event,'Desc')"
+                        (typeaheadOnSelect)="onSelectItemDescription($event,'html')" />
+                    </mat-form-field>
+                  </div>
+      
+                  <div class="col-md-12">
+                    <mat-form-field appearance="outline">
+                      <mat-label for="UOM">UOM</mat-label>
+                      <mat-select required id="uom" placeholder="UOM" [(ngModel)]="model.UOM" name="UOM" [disabled]="_beforeTax" (selectionChange)="openAddEditUOMForm()">
+                        <mat-option *ngFor="let web of UnitofMeasure" [value]="web.UOMCode">
+                          {{ web.UOMDesc }}
+                        </mat-option>
+                        <mat-option class="Background" value="AddUOM">Add UOM</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+      
+                  <div class="col-md-12">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Tax Percentage(%)</mat-label>
+                      <!-- <input matInput required type="number" maxlength="2" min="0" max="99.99" placeholder="Ex. 50" step="0.01"
+                        pattern="[0-9.]*" [(ngModel)]="model.TaxPercentage" name="TaxPercentage"
+                        (blur)="onblurItemDescription($event,'Tax')" /> -->
+                        <mat-select required id="tax"  [disabled]="_beforeTax" placeholder="Tax" [(ngModel)]="model.TaxPercentage" name="TaxPercentage" >
+                          <mat-option *ngFor="let web of _taxDetails" [value]="web">
+                          {{ web }}
+                         </mat-option>
+                         </mat-select>
+                    </mat-form-field>
+                  </div>
+      
+                  <!-- <div class="col-md-6">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Item Rate</mat-label>
+                      <input matInput required type="number" min="0" maxlength="7" max="9999999" pattern="[0-9]*"
+                        [(ngModel)]="model.ItemRate" name="ItemRate" (blur)="onblurItemDescription($event,'Rate')" />
+                    </mat-form-field>
+                  </div> -->
+      
+                  <div class="col-md-12">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Date of Creation</mat-label>
+                      <input matInput required [matDatepicker]="dt" [min]="minDate" [max]="MaxDate" readonly
+                        [(ngModel)]="model.DateOfCreation" name="DateOfCreation">
+                      <mat-datepicker-toggle matSuffix [for]="dt" [disabled]="_beforeTax||IsUpdate =='true' "></mat-datepicker-toggle>
+                      <mat-datepicker #dt></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+      
+                  <div class="col-md-12">
+                    <mat-form-field appearance="outline">
+                      <mat-label for="OpenItem">Open Item</mat-label>
+                      <mat-select required id="OpenItem" placeholder="OpenItem" [(ngModel)]="model.OpenItem" name="OpenItem"
+                      [disabled]="_beforeTax" (selectionChange)="openAddEditUOMForm()">
+                        <mat-option value="Y"> Yes </mat-option>
+                        <mat-option value="N"> No </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-md-6 Adjust">
+                    <button mat-stroked-button class="px-5" style="background-color:black;color:white;border-radius: 18px;" type="button" (click)="openAddEditPOSForm()" [disabled]="_beforeTax">Add POS</button>
+                  </div>
+                  
+                  <div class="col-md-6 Adjust">
+                    <button mat-stroked-button class="px-5" style="background-color:black;color:white;border-radius: 18px;" type="button" (click)="openTaxForm()">Feed Tax</button>
+                  </div>
+                  <br>
+
+                  <br>
+      
+                </div>
+            </div>
+            
+            <div class="col-md-8">
+              <fieldset class="border p-2 da">
+                <div class="grooveTable scrollbar-primary" style="overflow: auto;max-height: 230px;">
+                  <table class="table table-striped table-body" style="width: 100%;">
+                    <thead>
+                      <tr>
+                        <th scope="col" width="3%">
+                          <button class="btn btn-outline-secondary btnTblAdd tableBtn" [disabled]="_beforeTax" (click)="openAddEditPOSForm()">
+                            <mat-icon>add</mat-icon>                          
+                          </button>
+                        </th>
+                        <th scope="col" width="6%">POS Code</th>
+                        <th scope="col" width="5%">Active</th>
+                        <th scope="col" width="6%">Rate</th>
+                        <!-- <th scope="col" width="6%">Tax Percentage(%)</th> -->
+                      </tr>
+                    </thead>
+                    <tbody class="tbody">
+                      <tr *ngFor="let jeitem of model.POSItemGrid; let i = index">
+    
+                        <td scope="row">
+                          <button class="btn btnDelete" style="float: left" type="button" [disabled]="_beforeTax"
+                          (click)="DeleteRow(i)" matTooltip="Void Row">
+                          <mat-icon>delete</mat-icon>                          
+                        </button>
+                        </td>
+
+                        <td scope="row">
+                          <mat-form-field appearance="outline">
+                            <input matInput [(ngModel)]="jeitem.RPOSCode" name="Align{{ i }}" readonly />
+                          </mat-form-field>
+                        </td>
+    
+                        <td scope="row">
+                          <mat-checkbox class="class"  [checked]="jeitem.IsActive" name="Align{{ i }}" checked="IsActive{{i}}" [disabled]="_beforeTax"
+                           (change)="onClickActive($event,i)" ></mat-checkbox>
+                        </td>
+    
+                        <td scope="row">
+                            <mat-form-field appearance="outline">
+                              <input matInput required type="number" min="0" maxlength="7" max="9999999" step="0.01" pattern="[0-9.]*" [readonly]="jeitem.Enable"
+                              name="Align{{ i }}" [(ngModel)]="jeitem.Rate" (blur)="onblurItemPOSRate($event,i)" />
+                            </mat-form-field>
+                        </td>
+                        
+                        <!-- <td scope="row">
+                          <div *ngIf="!jeitem.TaxEnable">
+                            <mat-form-field appearance="outline">
+                              <mat-select required id="tax"  [disabled]="jeitem.Enable" placeholder="TAX" [(ngModel)]="jeitem.TaxPercentage" name="TaxPercentage" >
+                             <mat-option *ngFor="let web of _taxDetails" [value]="web">
+                             {{ web }}
+                            </mat-option>
+                            </mat-select>
+                            </mat-form-field>
+                          </div>
+                          <div *ngIf="jeitem.TaxEnable">
+                            <mat-form-field appearance="outline">
+                              <input matInput required readonly [(ngModel)]="jeitem.TaxPercentage" name="TaxPercentage" />
+                            </mat-form-field>
+                          </div>
+                        </td> -->
+      
+    
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </fieldset>
+
+              <!-- <div class="col-md-12"> -->
+                <fieldset>
+                  <legend>Tax Details</legend>
+                  <div class="row">
+                    <div class="col-md-11">
+                        <button type="button" class="btn btn-success px-5 ms-2 btnClss"  *ngFor="let web of _taxDetails" >
+                          {{web}}%
+                          <button type="button" class="btn btn-danger px-2 btndeleteClss" style="margin-left: 6px;" (click)="onClickbutton(web)">                  
+                            <mat-icon>delete</mat-icon>   
+                          </button>
+                        </button>
+                      </div>
+                      <!-- <div class="col-md-1">
+                      </div> -->
+                      
+                  </div>
+                </fieldset>
+              <!-- </div> -->
+              
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-4"></div>
+                  <div class="col-md-8 action">
+                    <div class="row">
+                      <!-- <mat-card-actions class="action"> -->
+                        <div class="col-md-3">
+                          <button mat-stroked-button class="px-5" style="background-color:orange;color:white;border-radius: 18px;"  type="submit" [disabled]="IsVoid == 'true'||_beforeTax"
+                            (click)="onSubmit()">{{_lable}}</button>
+                          </div>
+                          <div class="col-md-3" *ngIf="IsUpdate == 'true' && IsVoid == 'false'">
+                            <button mat-stroked-button class="px-5" style="background-color:orangered;color:white;border-radius: 18px;"  *ngIf="IsUpdate == 'true' && IsVoid == 'false'" type="button" [disabled]="_beforeTax"
+                              (click)="onVoid()">Void</button>
+                            </div>
+                          <div class="col-md-3" *ngIf="IsUpdate == 'true' && IsVoid == 'true'">
+                            <button mat-stroked-button class="px-5" style="background-color:orangered;color:white;border-radius: 18px;"  *ngIf="IsUpdate == 'true' && IsVoid == 'true'" type="button"
+                              (click)="onVoid()">Unvoid</button>
+                            </div>
+                          <div class="col-md-3">
+                            <button mat-stroked-button class="px-5" style="background-color:#8bcf24;color:white;border-radius: 18px;"  type="button" (click)="onClear('yes')">Clear</button>
+                          </div>
+                          <div class="col-md-3">
+                            <button mat-stroked-button class="px-5" style="background-color:skyblue;color:white;border-radius: 18px;"  type="button" (click)="onBack()">Back</button>
+                          </div>
+                      <!-- </mat-card-actions> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+    
+          </div>
+        </fieldset>
+      </div>
+    </div>
+  </mat-card-content>
+
+
+
+  <mat-divider></mat-divider>
+  <!-- <mat-card-actions class="action">
+    <button mat-stroked-button class="px-5" color="primary" type="submit" [disabled]="IsVoid == 'true'"
+      (click)="onSubmit()">{{_lable}}</button>
+    <button mat-stroked-button class="px-5" color="accent" *ngIf="IsUpdate == 'true' && IsVoid == 'false'" type="button"
+      (click)="onVoid()">Void</button>
+    <button mat-stroked-button class="px-5" color="accent" *ngIf="IsUpdate == 'true' && IsVoid == 'true'" type="button"
+      (click)="onVoid()">Unvoid</button>
+    <button mat-stroked-button class="px-5" color="accent" type="button" (click)="onClear('yes')">Clear</button>
+  </mat-card-actions> -->
+  <!-- <div class="card-body">
+    <div class="row">
+      <div class="col-sm-6">
+        <mat-form-field appearance="outline">
+          <mat-label for="IPaddress">Filter</mat-label>
+          <input matInput type="text" id="Filter" placeholder="search"
+          (keyup)="applyFilter($event)" #input />
+        </mat-form-field>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="mat-elevation-z8">
+          <table class="table-striped" mat-table [dataSource]="dataSource" matSort>
+            <ng-container matColumnDef="ItemDescription">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Item Description
+              </th>
+              <td mat-cell *matCellDef="let row">{{ row.ItemDescription }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="UOM">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                UOM
+              </th>
+              <td mat-cell *matCellDef="let row">{{ row.UOM }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="Tax">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Tax Percentage
+              </th>
+              <td mat-cell *matCellDef="let row">{{ row.TaxPercentage }}</td>
+            </ng-container>
+            
+            <ng-container matColumnDef="DOC">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                Date Of Creation
+              </th>
+              <td mat-cell *matCellDef="let row">{{ row.DateOfCreation| date:"dd-MM-yyyy" }}</td>
+            </ng-container>
+
+
+
+            <ng-container matColumnDef="actions">
+              <th style="width: 15%" mat-header-cell *matHeaderCellDef mat-sort-header>
+                Action
+              </th>
+
+              <td mat-cell *matCellDef="let row">
+                
+                <button class="Background" style="float: left" type="button"
+                (click)="onedit(row)" matTooltip="Edit Record">
+                <mat-icon> border_color</mat-icon>
+              </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" colspan="5">
+                No data matching the filter "{{ input.value }}"
+              </td>
+            </tr>
+          </table>
+
+          <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        </div>
+      </div>
+    </div>
+  </div> -->
+</mat-card>
+<!-- </form> -->
+
+<!-- 
+    <ng-template #pop let-modal>
+      <div class="modal-body">
+        <div class="row">
+
+          <div class="col-md-12">
+            <div class="col-md-6">
+            <mat-form-field appearance="outline">
+              <mat-label>Tax Percentage(%)</mat-label>
+              <input matInput required type="number" maxlength="2" min="0" max="99.99" placeholder="Ex. 50" step="0.01"
+                pattern="[0-9.]*" [(ngModel)]="model.TaxPercentage" name="TaxPercentage"
+                (blur)="onblurItemDescription($event,'Tax')" />
+            </mat-form-field>
+          </div> 
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button mat-raised-button="" (change)="OnCloseTax()" color="accent" class="btn btn-mat-back">
+          <i aria-hidden="true" class="fa fa-arrow-circle-right"></i> Close
+        </button>
+        
+        <button mat-stroked-button class="px-5" style="background-color:orange;color:white;border-radius: 18px;" 
+        (click)="onAddTax()">Add Tax</button>
+      </div>
+    </ng-template> -->

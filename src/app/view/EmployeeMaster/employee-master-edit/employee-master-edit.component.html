@@ -1,0 +1,667 @@
+
+<mat-card-title>
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-10">
+                <h1>Employee Master</h1>
+            </div>
+        </div>
+    </div>
+</mat-card-title> 
+
+<mat-card-content>
+    <div class="col-md-12">
+        <fieldset>
+            <div class="row">
+                <div class="col-md-4" style="margin-bottom: 40px;">
+                    <fieldset>
+                      <legend class="legend1">Employee Details</legend>
+    
+                    <div class="col-md-12">
+                        <mat-form-field appearance="outline">
+                          <mat-label>Employee Code</mat-label>
+                          <input matInput required [(ngModel)]="model.Emp_Code" minlength="3" maxlength="8"
+                            (blur)="onblurEmployee($event,'Code')" />
+                        </mat-form-field>
+                    </div>
+      
+                  <div class="col-md-12">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Employee Type</mat-label>
+                      <mat-select required id="EmployeeType" placeholder="Employee Type" [(ngModel)]="model.Emp_Type" (selectionChange)="GetCode()" >
+                        <mat-option *ngFor="let web of EmployeeTypeArray" [value]="web">
+                          {{ web }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+
+                    <div class="col-md-12">
+                        <mat-form-field appearance="outline">
+                          <mat-label>Employee Name</mat-label>
+                          <input matInput required  [(ngModel)]="model.Emp_Name" minlength="3" maxlength="40"
+                            pattern="[A-Za-z0-9 ]*" (blur)="onblurEmployee($event,'Name')" />
+                        </mat-form-field>
+                    </div>
+                    
+                    <div class="col-md-12">
+                        <mat-form-field appearance="outline">
+                          <mat-label>Date of Birth</mat-label>
+                          <input matInput required [matDatepicker]="db" [min]="minDate" [max]="MaxDate" readonly
+                            [(ngModel)]="model.DOB" name="DateOfBirth">
+                          <mat-datepicker-toggle matSuffix [for]="db"></mat-datepicker-toggle>
+                          <mat-datepicker #db></mat-datepicker>
+                        </mat-form-field>
+                      </div>
+      
+                    <div class="col-md-12">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Designation</mat-label>
+                        <mat-select required id="Designation" placeholder="Designation" [(ngModel)]="model.Emp_Designation" name="UOM" >
+                          <mat-option *ngFor="let web of EmployeeDestinationArray" [value]="web">
+                            {{ web }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    
+                      <div class="col-md-12">
+                        <mat-form-field appearance="outline">
+                          <mat-label>Date of Joining</mat-label>
+                          <input matInput required [matDatepicker]="dj" [min]="JMin" [max]="JMax" readonly
+                            [(ngModel)]="model.DOJ" name="DateOfJoining">
+                          <mat-datepicker-toggle matSuffix [for]="dj"></mat-datepicker-toggle>
+                          <mat-datepicker #dj></mat-datepicker>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-md-12">
+                        <div class="row">
+                          <div class="col-md-6 Adjust">
+                            <button mat-stroked-button class="px-5" style="background-color:black;color:white;border-radius: 18px;" type="button" 
+                            data-bs-toggle="modal" data-bs-target="#EmpTypePopUp">Add Type</button>
+                          </div>
+
+                            <div class="col-md-6 Adjust">
+                              <button mat-stroked-button class="px-3" style="background-color:black;color:white;border-radius: 18px;" type="button"
+                              data-bs-toggle="modal" data-bs-target="#EmpDestinationPopUp" >Add Designation</button>
+                            </div>
+                            
+                        </div>
+                      </div>
+
+                    </fieldset>
+                </div>
+
+                <div class="col-md-8">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <fieldset>
+                        <legend class="legend1">Personal Details</legend>
+                        <div class="col-sm-12 grooveTable scrollbar-primary" style="overflow: auto;max-height: 325px;">
+    
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <!-- <mat-form-field appearance="outline">
+                                            <mat-label>Marrige</mat-label>
+                                            <input matInput>
+                                        </mat-form-field> -->
+                                        <label style="font-size: 26px;">Marriage</label></div>
+                                    <div class="col-md-6">
+                                        <div class="can-toggle">
+                                            <input id="a" type="checkbox" [(ngModel)]="Marriage">
+                                            <label for="a">
+                                              <div class="can-toggle__switch" data-checked="Yes" data-unchecked="No"  ></div>
+                                            </label>
+                                          </div>
+                                        </div>
+                                </div>
+                            </div>
+    
+                            <div class="col-md-12">
+                              <div class="row">
+                                <div class="col-md-8">
+                                  <mat-form-field appearance="outline">
+                                    <mat-label>Spouse</mat-label>
+                                    <input matInput required [(ngModel)]="model.Spouse"  pattern="[A-Za-z ]*" 
+                                     [disabled]="!Marriage" minlength="3" maxlength="40"
+                                      (blur)="onblurPersonalDet($event,'Spouse','')" />
+                                  </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                  <div class="row">
+                                    <button mat-icon-button mat-mini-fab class="Add" (click)="onAddRow()" [disabled]="!Marriage">
+                                      <i class="fa-solid fa-plus"></i>
+                                  </button>
+                                  <button mat-icon-button mat-mini-fab class="info" data-bs-toggle="modal" (click)="onAddSpouseDetailRow(EmpSpousePopUp)" data-bs-target="#EmpSpousePopUp"  [disabled]="!Marriage">
+                                    <i class="fa-solid fa-info-circle"></i>
+                                </button>
+                              </div>
+                                </div>
+                              </div>
+                            </div>
+    
+                            <div *ngFor="let item of PersonalDet; let i = index">
+                              <div class="col-md-12">
+                                  <div class="row">
+                                    <div class="col-md-8">
+                                      <mat-form-field appearance="outline">
+                                        <mat-label>Son / Daughter</mat-label>
+                                        <input matInput [(ngModel)]="item.Emp_Dep" [disabled]="!Marriage"  pattern="[A-Za-z ]*" minlength="3" maxlength="40"
+                                          (blur)="onblurPersonalDet($event,'Child',i)" matTooltip="Add"/>
+                                      </mat-form-field>
+                                    </div>
+                                    <div class="col-md-4">
+                                      <div class="row">
+                                        <button mat-icon-button mat-mini-fab class="Delete" (click)="onRemoveRow(i)" [disabled]="!Marriage" matTooltip="Delete">
+                                          <i class="fa-solid fa-trash"></i>
+                                        <!-- <mat-icon>add</mat-icon>    -->
+                                      </button>
+                                      <!-- <button mat-icon-button mat-mini-fab class="info" (click)="onAddChildDetRow(EmpChildPopUp,i)" [disabled]="!Marriage">
+                                        <i class="fa-solid fa-info-circle"></i>
+                                    </button> -->
+                                   <button mat-icon-button mat-mini-fab class="info" (click)="onAddDepRow(i)" [disabled]="!Marriage"  [attr.data-bs-target]="'#DependentType'+i" data-bs-toggle="modal">
+                                    <i class="fa-solid fa-info-circle"></i>
+                                  </button>
+                                    </div>
+                                    </div>
+                                  </div>
+                              </div>
+                            </div>
+    
+                            </div>
+                        </fieldset>
+                    </div>
+    
+                    <div class="col-md-6">
+                      <fieldset>
+                        <legend class="legend1">Qualification Details</legend>
+                        <div class="col-sm-12 grooveTable scrollbar-primary" style="overflow: auto;max-height: 325px;">
+    
+                          
+                          <div *ngFor="let item of QualificationDet; let i = index">
+                            <div class="col-md-12">
+                                <div class="row">
+                                  <div class="col-md-8">
+                                    <mat-form-field appearance="outline">
+                                      <mat-label>Qualification {{i+1}}</mat-label>
+                                      <input matInput required [(ngModel)]="item.Class" minlength="3" maxlength="40" (blur)="onblurQuatifyDet($event,i)" />
+                                    </mat-form-field>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <div class="row">
+                                    <button mat-icon-button mat-mini-fab class="Add" [hidden]="i != 0" (click)="onAddQualificationRow(i)" matTooltip="Add">
+                                      <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                    <button mat-icon-button mat-mini-fab class="Delete" [hidden]="i == 0" (click)="onRemoveQualifyRow(i)" matTooltip="Delete">
+                                      <i class="fa-solid fa-trash"></i>
+                                  </button>
+                                  <!-- <button mat-icon-button mat-mini-fab class="info" (click)="onAddQualifyDetRow(i,'QualifiDet')">
+                                    <i class="fa-solid fa-info-circle"></i>
+                                   </button> -->
+                                   <button mat-icon-button mat-mini-fab class="info" (click)="onAddQualiRow(i)" [attr.data-bs-target]="'#QualificationType'+i" data-bs-toggle="modal">
+                                    <i class="fa-solid fa-info-circle"></i>
+                                  </button>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                          </div>
+    
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <div class="col-md-12" style="margin-top: 15px;">
+                    <fieldset>
+                    <legend class="legend1">Employee Uploads 
+                      <!-- <button mat-icon-button mat-mini-fab class="Add" (click)="onAddImage()" >
+                        <i class="fa-solid fa-plus"></i>
+                    </button> -->
+                  </legend>
+                      <div class="col-md-12" style="margin-top: 10px;">
+                        <div class="row">
+
+                          <!-- <ng-container *ngFor="let doc of DocDetails; let i = index">
+                          <div class="col-md-4">
+                            <div class="row form-group">
+                              <label class="hoverable" for="fileInputPhoto{{i}}">
+                                <ng-container *ngIf="doc.type === 'image/jpeg'; else pdfViewer">
+                                  <img [src]="doc.Emp_Uploads  ? doc.Emp_Uploads : _config.defaultimage" height="100%"
+                                    width="100%" height="auto" />
+                                </ng-container>
+                                <ng-template #pdfViewer>
+                                  <object [data]="doc.Emp_Uploads ? doc.Emp_Uploads : _config.defaultFile"
+                                    type="application/pdf" width="100%" height="100%">
+                                  </object>
+                                </ng-template>
+                                <div class="hover-text">Choose File</div>
+                                <div class="background"></div>
+                              </label>
+                              <br />
+                              <input id="fileInputPhoto{{i}}" class="fileInput" type='file' [(ngModel)]="doc.Emp_Uploads"
+                                (change)="onFileUpdate($event, i);" accept='.png,.jpg,.pdf*'>
+                            </div>
+                            <div class="row">
+                              <label class="control-label">{{doc.name}}</label>
+                              <button class="Delete p-2" style="width: 75%;font-size: 23px;"  (click)="onRemoveImg(i)" matTooltip="Delete">
+                                Remove
+                            </button></div>
+                          </div>
+
+                        </ng-container> -->
+
+                        <div class="col-md-4 required">
+                          <div class="row form-group">
+                            <label class="hoverable" for="fileInputPhoto">
+                              <img [src]="model.Emp_Image  ? model.Emp_Image : _config.defaultimage" height="100%"
+                                width="100%" height="auto" />
+                                <div class="hover-text">Choose File</div>
+                                <div class="background"></div>
+                            </label>
+                            <input id="fileInputPhoto" required class="fileInput" type='file' [(ngModel)]="model.Emp_Image"
+                              (change)="onFileUpdate($event, 'image','EmpImg');" accept='.png,.jpg,'>
+                        </div>
+                        <div class="row">
+                          <label class="control-label">Employee Image</label>
+                        </div>
+                      </div>
+
+                      <div class="col-md-3">
+                        <div class="row form-group">
+                          <label class="hoverable" for="fileInputPdf">
+                            <iframe class="dynamicIframe"
+                              [src]="model.Emp_MarriageCertificate || defaultDynamicDoc | safe"></iframe>
+                              <!-- <object [data]="model.Emp_MarriageCertificate ? model.Emp_MarriageCertificate : defaultDynamicDoc"
+                                    width="110%" height="100%">
+                                  </object> -->
+                            <div class="hover-text">Choose File</div>
+                            <div class="background"></div>
+                          </label>
+                          <input id="fileInputPdf" class="fileInput" type='file' [(ngModel)]="model.Emp_MarriageCertificate"
+                            (change)="onFileUpdate($event, 'Certificte','');" accept='.pdf*'>
+                      </div>
+                      <div class="row">
+                        <label class="control-label">Marrige Certificate</label>
+                      </div>
+                    </div>
+
+                    </div>
+                    </div>
+                    </fieldset>
+                    </div>
+
+                  </div>
+                </div>
+
+            </div>
+        </fieldset>
+    </div>
+</mat-card-content>
+
+<div class="card-footer fixed-bottom" style="text-align: center;">
+  <div class="footerAlign">
+    <button (click)="onBack()" class="btn btn-mat-back" mat-raised-button color="accent" matTooltip="Back">
+      <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back
+    </button>
+
+    <button (click)="onClear()" class="btn btn-mat-clear" mat-raised-button color="accent"
+      matTooltip="Clear">
+      <i class="fa fa-redo" aria-hidden="true"></i> Clear
+    </button>
+
+    <button (click)="onSubmit()" class="btn btn-mat-submit" mat-raised-button color="accent"
+      matTooltip="Save">
+      <i class="fa fa-refresh" aria-hidden="true"></i> Submit 
+    </button>
+  </div>
+</div>
+  
+
+<!-- Modal -->
+<div class="modal fade" id="EmpTypePopUp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Employee Type</h1>
+        <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+        
+      </div>
+      <div class="modal-body">
+        <fieldset>
+        <div class="col-md-12">
+          <mat-form-field appearance="outline">
+            <mat-label>Add Employee Type</mat-label>
+            <input matInput required [(ngModel)]="Emptype"  pattern="[A-Za-z0-9]*" minlength="3" maxlength="20"
+              (blur)="onblurEmployee($event,'type')" />
+          </mat-form-field>
+      </div></fieldset>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="onSaveEmployeeType()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="EmpDestinationPopUp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticLabel">Add Designation</h1>
+        <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+        
+      </div>
+      <div class="modal-body">
+        <fieldset>
+        <div class="col-md-12">
+          <mat-form-field appearance="outline">
+            <mat-label>Add Designation</mat-label>
+            <input matInput required [(ngModel)]="EmpDestination"  pattern="[A-Za-z0-9]*" minlength="3" maxlength="20"
+              (blur)="onblurEmployee($event,'destination')" />
+          </mat-form-field>
+      </div></fieldset>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="onSaveDestination()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #EmpSpousePopUp let-modal>
+  <div class="modal-header">
+    <p>Spouse Details</p>
+  </div>
+  <div class="modal-body">
+    <fieldset>
+    <div class="row">
+    
+      <div class="col-md-4">
+        <mat-form-field appearance="outline">
+          <mat-label>Spouse Name</mat-label>
+          <input matInput required [(ngModel)]="model.Spouse"  pattern="[A-Za-z ]*" minlength="3" maxlength="20"
+            (blur)="onblurEmpSpouse($event,'name')" />
+        </mat-form-field>
+    </div>
+    <div class="col-md-4">
+      <mat-form-field appearance="outline">
+        <mat-label>Spouse Type</mat-label>
+        <mat-select required id="SpouseType" placeholder="Spouse Type" [(ngModel)]="model.SpouseType" name="Spouse" >
+          <mat-option *ngFor="let web of EmpSpouseTypeArray" [value]="web">
+            {{ web }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  
+    <div class="col-md-4 Adjust">
+      <button mat-stroked-button class="px-3" style="background-color:black;color:white;border-radius: 18px;" type="button"
+      (click)="onAddSpouse(Spouse_Type)" >Add Spouse Type</button>
+    </div>
+    
+    <div class="col-md-4">
+      <mat-form-field appearance="outline">
+        <mat-label>Date of Birth</mat-label>
+        <input matInput required [matDatepicker]="sdb" [min]="minDate" [max]="MaxDate" readonly
+          [(ngModel)]="model.SDOB" name="SDateOfBirth" (dateChange)="onSelectSDOB()" >
+        <mat-datepicker-toggle matSuffix [for]="sdb"></mat-datepicker-toggle>
+        <mat-datepicker #sdb></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-4">
+      <mat-form-field appearance="outline">
+        <mat-label>Date of Wedding</mat-label>
+        <input matInput required [matDatepicker]="sdw" [min]="WedminDate" [max]="JMax" readonly
+          [(ngModel)]="model.DOW" name="SDateOfWed">
+        <mat-datepicker-toggle matSuffix [for]="sdw"></mat-datepicker-toggle>
+        <mat-datepicker #sdw></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="col-md-4">
+      <mat-form-field appearance="outline">
+        <mat-label>Cell No.</mat-label>
+        <input matInput type="tel" minlength="10" maxlength="12" [(ngModel)]="model.SCellNo" min="0"
+        oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+        (blur)="onblurEmpSpouse($event,'Cell')" />
+      </mat-form-field>
+    </div>
+    
+    <div class="col-md-4">
+      <mat-form-field appearance="outline">
+        <mat-label>Email Id</mat-label>
+        <input matInput type="email" [(ngModel)]="model.SEmailId"
+        (blur)="onblurEmpSpouse($event,'Email')" />
+      </mat-form-field>
+    </div>
+    
+    <div class="col-md-4">
+      <div class="row form-group">
+        <label class="hoverable" for="fileInputSpousePhoto">
+          <img [src]="model.SImage  ? model.SImage : _config.defaultimage" height="100%"
+            width="100%" height="auto" />
+            <div class="hover-text">Choose File</div>
+            <div class="background"></div>
+        </label>
+        <input id="fileInputSpousePhoto" required class="fileInput" type='file' [(ngModel)]="model.SImage"
+          (change)="onFileUpdate($event, 'image','SpouseImg');" accept='.png,.jpg,'>
+    </div>
+    <div class="row">
+      <label class="control-label">Spouse Image</label>
+    </div>
+  </div>
+
+
+  </div></fieldset>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="onCloseSType()" >Close</button>
+    <button type="button" class="btn btn-primary" (click)="onAddSpouseRow()">Add</button>
+  </div>
+
+</ng-template>
+
+<ng-template #Spouse_Type let-modal>
+  <div class="modal-header">
+    <p>Spouse Type</p>
+  </div>
+  <div class="modal-body">
+    <fieldset>
+    
+    <div class="col-md-12">
+      <mat-form-field appearance="outline">
+        <mat-label>Spouse Type</mat-label>
+        <input matInput required [(ngModel)]="SpouseType"  pattern="[A-Za-z ]*" minlength="3" maxlength="20"
+          (blur)="onblurEmpSpouse($event,'sp_type')" />
+      </mat-form-field>
+  </div></fieldset>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary"  (click)="onCloseSType()">Close</button>
+    <button type="button" class="btn btn-primary" (click)="onAddSpouseType()">Add</button>
+  </div>
+
+</ng-template>
+
+
+<ng-template #Dependentmodaltype let-modal>
+  <div class="modal-header">
+    <p>Dependent Type</p>
+  </div>
+  <div class="modal-body">
+    <fieldset>
+    
+    <div class="col-md-12">
+      <mat-form-field appearance="outline">
+        <mat-label>Dependent Type</mat-label>
+        <input matInput required [(ngModel)]="EDependentType"  pattern="[A-Za-z ]*" minlength="3" maxlength="20"
+          (blur)="onblurEmpSpouse($event,'ED_type')" />
+      </mat-form-field>
+  </div></fieldset>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary"  (click)="onCloseSType()">Close</button>
+    <button type="button" class="btn btn-primary" (click)="onAddDeptype()">Add</button>
+  </div>
+
+</ng-template>
+
+
+<div *ngFor="let Dep of ChildDet; let i = index" >
+  <div class="modal fade" [id]="'DependentType'+i"   data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title" id="staticBackdropLabel">DEPENDENT DETAILS</h2>
+          <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+        </div>
+        <div class="modal-body">
+          <fieldset>
+          <mat-form-field  appearance="outline">
+            <mat-label>Dependent Name</mat-label>
+            <input matInput type="text"  [(ngModel)]="Dep.Emp_Dep" readonly >
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline" >
+            <mat-label>Dependent Type</mat-label>
+            <mat-select [(ngModel)]="Dep.DependentType">
+             
+              <mat-option *ngFor="let type of DependentTypeArray" [value]="type" >{{type}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        
+          <div class="row">
+            <div class="col-md-6 p-2">
+              <button mat-stroked-button class="px-3" style="background-color:black;color:white;border-radius: 18px;" type="button"
+               (click)="onAddDependent(Dependentmodaltype)" >Add Dependent Type</button>
+              <!-- <button class="btn btn-dark w-100 py-2 mb-2" style="border-radius: 20px;" data-bs-toggle="modal" data-bs-target="#Dependentmodaltype">Type</button> -->
+  
+              <mat-form-field   appearance="outline">
+              <mat-label>Date Of Brith</mat-label>
+              <input matInput [matDatepicker]="dobd"  [(ngModel)]="Dep.DateofBrith"  [min]="minDate" [max]="MaxDate" readonly>
+               <mat-datepicker-toggle matSuffix [for]="dobd"></mat-datepicker-toggle>
+              <mat-datepicker  #dobd></mat-datepicker>
+            </mat-form-field>
+        
+         
+              <mat-form-field  appearance="outline">
+                <mat-label>Age</mat-label>
+                <input matInput type="number" minlength="1" min="1" maxlength="2" max="60" pattern="[0-9]" (blur)="validateDependent($event,i,'Age')"  [(ngModel)]="Dep.Age">
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <div class="upload-certificate" style="border-radius: 30px;">
+                <input type="file" id="qfile{{ i }}"  [(ngModel)]="Dep.DependentPhoto"   hidden accept="image/*" (change)="displayDependentImage($event, i)" />
+                <label for="qfile{{ i }}" class="hoverable">
+                  <!-- Display uploaded image if available -->
+                  <img  [src]="Dep.DependentPhoto ? Dep.DependentPhoto : _config.defaultimage" alt="Dependent Photo" />
+                  <div class="hover-text">Upload Dependent Photo</div>
+                  <div class="background"></div>
+                </label>
+              </div>
+            </div>
+            <mat-form-field  appearance="outline">
+              <mat-label>Contact No</mat-label>
+              <input matInput type="text"    pattern="[0-9]*"  maxlength="10"  (blur)="validateDependent($event,i,'Phone')" [(ngModel)]="Dep.ContactNo">
+            </mat-form-field>
+            <mat-form-field  appearance="outline">
+              <mat-label>Email ID</mat-label>
+              <input matInput type="email" [(ngModel)]="Dep.EmailId" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" (blur)="validateDependent($event,i,'Email')">
+            </mat-form-field>
+          </div>
+        </fieldset>
+        </div>
+        <div class="modal-footer">
+        
+          <button type="button"  mat-raised-button  class="clear mx-3" (click)="onClearDetails(i,'Dependent')">Clear</button>
+          <button type="button"  mat-raised-button  class="black" (click)="onAddDepValue(i)" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngFor="let Dep of QualificationRowDet; let i = index" >
+  <div class="modal fade" [id]="'QualificationType'+i"   data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title" id="staticBackdropLabel">QUALIFICATION DETAILS</h2>
+        </div>
+        <div class="modal-body">
+          <fieldset>
+          <div class="row">
+            <mat-form-field  appearance="outline">
+              <mat-label>Qualification Type</mat-label>
+              <input matInput type="text"  [(ngModel)]="Dep.Class" readonly >
+            </mat-form-field>
+          
+          <mat-form-field  appearance="outline">
+            <mat-label>Name of Institution</mat-label>
+            <input matInput type="text" minlength="3" maxlength="40" (blur)="validateQualification($event,i,'institute')"  [(ngModel)]="Dep.NameofIns" >
+          </mat-form-field>
+          
+            <div class="col-md-6">
+          <mat-form-field  appearance="outline">
+            <mat-label>Year of Passing</mat-label>
+            <input matInput type="number" pattern="[0-9]*" (blur)="validateQualification($event,i,'Year')" [(ngModel)]="Dep.YrPassing" >
+          </mat-form-field>
+          </div>
+
+          <div class="col-md-6">
+          <mat-form-field  appearance="outline">
+            <mat-label>Grade</mat-label>
+            <input matInput type="number"  pattern="[0-9]*" (blur)="validateQualification($event,i,'Grade')" [(ngModel)]="Dep.Grade" >
+          </mat-form-field>
+          </div>
+          
+          <mat-form-field  appearance="outline">
+            <mat-label>Subjects offered</mat-label>
+            <input matInput type="text" (blur)="validateQualification($event,i,'offer')" [(ngModel)]="Dep.Subjectoffered" >
+          </mat-form-field>
+  
+          <div class="col-md-4"></div>
+          <div class="col-md-4">
+            <div class="row form-group">
+              <label class="hoverable" for="fileInputQualiPdf{{i}}">
+                <iframe class="dynamicIframe"
+                  [src]="Dep.QualifyCertificate || defaultDynamicDoc | safe"></iframe>
+                  <!-- <object [data]="Dep.QualifyCertificate ? Dep.QualifyCertificate : defaultDynamicDoc"
+                        width="110%" height="100%">
+                      </object> -->
+                <div class="hover-text">Choose File</div>
+                <div class="background"></div>
+              </label>
+              <input id="fileInputQualiPdf{{i}}" class="fileInput" type='file' [(ngModel)]="Dep.QualifyCertificate"
+                (change)="onQualifyFileUpdate($event, i);" accept='.pdf*'>
+          </div>
+          <div class="row">
+            <label class="control-label">Qualification Certificate</label>
+          </div>
+        </div>
+
+        
+      </div>
+    </fieldset>
+        
+        </div>
+        <div class="modal-footer">
+        
+          <button type="button"  mat-raised-button  class="clear mx-3" (click)="onClearDetails(i,'Qualification')">Clear</button>
+          <button type="button"  mat-raised-button  class="black" (click)="onAddQualifyDetRow(i)" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,121 @@
+
+    <mat-card>
+        <mat-card-title>
+          <h1 class="center">Item Report</h1>
+        </mat-card-title>
+      
+        <mat-card-content>
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <fieldset>
+                    <div class="row">
+
+                      
+              <div class="col-md-6">
+                <fieldset class="border p-2 da">
+                  <legend class="legend1">
+                    <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                      <input type="checkbox" class="custom-control-input" (change)="selectAll('item')"
+                        [(ngModel)]="ItemSelectAll" id="ItemSelectAll" />
+                      <label class="custom-control-label" for="ItemSelectAll" (click)="selectAll('item')"> Item Details</label>
+                    </div>
+                  </legend>
+                  <div class="row scrollbar-primary checklist-height">
+                    <div class="col-md-6" *ngFor="let web of _ItemDetails; let i = index">
+                      <div class="input-group">
+                        <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                          <input type="checkbox" class="custom-control-input" [(ngModel)]="web.isChecked" id="item{{i}}"
+                            (change)="onChangeItem()" />
+                          <label class="custom-control-label" for="item{{i}}">{{web.ItemDescription}}</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+
+              <div class="col-md-6">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <mat-radio-group aria-labelledby="example-radio-group-label" id="R1" class="radio-group"
+                        [(ngModel)]="Wise">
+                        <mat-radio-button class="radio-button" value="Datewise">Date wise</mat-radio-button>
+                      </mat-radio-group>
+                    </div>
+                    <div class="col-md-6">
+                      <mat-radio-group aria-labelledby="example-radio-group-label" id="R2" class="radio-group"
+                        [(ngModel)]="Wise">
+                        <mat-radio-button class="radio-button" value="Itemwise">Item wise</mat-radio-button>
+                      </mat-radio-group>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <mat-form-field appearance="outline">
+                        <mat-label>From Date</mat-label>
+                        <input readonly [min]="minDate" [max]="maxDate" matInput [(ngModel)]="model.FromDate" [matDatepicker]="from"
+                          [required]="Wise == 'Datewise'" (dateChange)="ValidateDate()" />
+                        <mat-datepicker-toggle matSuffix [for]="from">
+                          <mat-icon matDatepickerToggleIcon>event</mat-icon>
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #from>
+                          <mat-datepicker-actions>
+                            <button mat-raised-button class="btn btn-mat-datepicker" color="primary"
+                              matDatepickerApply>Apply</button>
+                            <button mat-raised-button class="btn btn-mat-datepicker" color="primary"
+                              (click)="setToday(from,'from')">Today</button>
+                            <button mat-raised-button class="btn btn-mat-datepicker" color="primary"
+                              matDatepickerCancel>Cancel</button>
+                          </mat-datepicker-actions>
+                        </mat-datepicker>
+                      </mat-form-field>
+                    </div>
+      
+                    <div class="col-md-6">
+                      <mat-form-field appearance="outline">
+                        <mat-label>To Date</mat-label>
+                        <input readonly [min]="model.FromDate" [max]="maxDate" matInput [(ngModel)]="model.ToDate"
+                          [matDatepicker]="to" [required]="Wise == 'Datewise'" (dateChange)="ValidateDate()" />
+                        <mat-datepicker-toggle matSuffix [for]="to">
+                          <mat-icon matDatepickerToggleIcon>event</mat-icon>
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #to>
+                          <mat-datepicker-actions>
+                            <button mat-raised-button class="btn btn-mat-datepicker" color="primary"
+                              matDatepickerApply>Select</button>
+                            <button mat-raised-button class="btn btn-mat-datepicker" color="primary"
+                              (click)="setToday(to,'to')">Today</button>
+                            <button mat-raised-button class="btn btn-mat-datepicker" color="primary"
+                              matDatepickerCancel>Cancel</button>
+                          </mat-datepicker-actions>
+                        </mat-datepicker>
+                      </mat-form-field>
+                  </div>
+
+                  </div>
+                </div>
+
+              </div>
+
+                    </div>
+                </fieldset>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      
+      
+      
+        <mat-divider></mat-divider>
+        <mat-card-actions class="action">
+          <button mat-stroked-button class="px-5" color="primary" type="submit" (click)="onSubmit()">View Report</button>
+          <button mat-stroked-button class="px-5" color="accent" type="button" (click)="onClear()">Clear</button>
+          <button mat-stroked-button class="px-5" color="accent" type="button" (click)="onBack()">Back</button>
+        </mat-card-actions>
+      </mat-card>
+      

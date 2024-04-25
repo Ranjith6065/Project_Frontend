@@ -1,0 +1,1080 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+@import '~ngx-toastr/toastr';
+/* Importing Bootstrap SCSS file. */
+@import "~bootstrap/scss/bootstrap";
+@import "~bootstrap/dist/css/bootstrap.css";
+
+/* Importing Datepicker SCSS file. */
+@import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";
+
+
+.mat-table {
+    background-color: whitesmoke !important;
+    color: black !important;
+  }
+
+  .mat-cell,
+  .mat-footer-cell {
+    // color: #001f3f;
+  
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 16px;
+    color: #0e0d0d !important;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.377);
+  
+  }
+  .mat-paginator {
+    background: #424242;
+    color: rgba(255, 255, 255, .7);
+  }
+  
+  .mat-paginator .mat-select-value {
+    color: #fff;
+  }
+  
+  .mat-header-cell,
+  .mat-paginator-page-size-label {
+    // color: white;
+    // background: #424242;
+  
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 16px;
+    color: #000000 !important;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.377);
+  
+  }
+  
+  .mat-row {
+    border-bottom: 1px #424242 !important;
+  }
+  
+  .content-header {
+    background-color: aliceblue;
+  }
+  
+  .content-header h1 {
+    padding-top: 6px !important;
+    color: #ff8800 !important;
+    margin-top: 65px !important;
+  }
+  
+  .content-header h2 {
+    padding-top: 6px !important;
+    color: #ff8800 !important;
+    margin-top: 65px !important;
+  }
+  
+  .content-header h3 {
+    padding-top: 6px !important;
+    color: #ff8800 !important;
+    margin-top: 65px !important;
+  }
+  
+  
+  .content-header h4 {
+    padding-top: 6px !important;
+    color: #ff8800 !important;
+    margin-top: 65px !important;
+  }
+  
+  .content-header h5 {
+    padding-top: 6px !important;
+    color: #ff8800 !important;
+    margin-top: 65px !important;
+  }
+  
+  .content-header h6 {
+    padding-top: 6px !important;
+    color: #ff8800 !important;
+    margin-top: 65px !important;
+  }
+  
+  .openFromScreen {
+    margin-top: 0px !important;
+  }
+  
+  .container-fluid .openFromScreen {
+    margin-top: 0px !important;
+  }
+  
+  .content-header button {
+    padding-top: 6px !important;
+    margin-top: 65px !important;
+  }
+  
+  .card-footer button {
+    float: right;
+    margin-left: 3px;
+  }
+  
+  
+  mat-form-field input {
+    border-bottom: green;
+    caret-color: indianred;
+  }
+  
+  // fieldset {
+  //   border-style: solid;
+  // }
+  
+  .legend1 {
+  
+    margin-bottom: 6px;
+    width: auto;
+    margin-top: -33px;
+    position: absolute;
+  
+    font-weight: bold;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-size: 1.0em;
+  
+  }
+  
+  .border {
+    border-color: brown !important;
+    width: 100%;
+  }
+  
+  /* Test toggle in label designing */
+  .toggle {
+    --width: 80px;
+    --height: calc(var(--width) / 3);
+  
+    position: relative;
+    display: inline-block;
+    width: var(--width);
+    height: var(--height);
+    border-radius: var(--height);
+    cursor: pointer;
+  }
+  
+  .toggle input {
+    display: none;
+  }
+  
+  .toggle .slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--height);
+    background-color: #ccc;
+    transition: all 0.4s ease-in-out;
+    margin-top: 15px;
+  }
+  
+  .toggle .slider::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(var(--height));
+    height: calc(var(--height));
+    border-radius: calc(var(--height) / 2);
+    background-color: #fff;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+    transition: all 0.4s ease-in-out;
+  }
+  
+  .toggle input:checked+.slider {
+    background-color: #12db5f;
+  }
+  
+  .toggle input:checked+.slider::before {
+    transform: translateX(calc(var(--width) - var(--height)));
+  }
+  
+  .toggle .labels {
+    position: absolute;
+    top: 8px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 12px;
+    font-family: sans-serif;
+    transition: all 0.4s ease-in-out;
+    padding-top: 0px;
+    margin-top: 10px;
+  }
+  
+  .toggle .labels::after {
+    content: attr(data-off);
+    position: absolute;
+    right: 5px;
+    color: #4d4d4d;
+    opacity: 1;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+    transition: all 0.4s ease-in-out;
+  }
+  
+  .toggle .labels::before {
+    content: attr(data-on);
+    position: absolute;
+    left: 5px;
+    color: #ffffff;
+    opacity: 0;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
+    transition: all 0.4s ease-in-out;
+  }
+  
+  .toggle input:checked~.labels::after {
+    opacity: 0;
+  }
+  
+  .toggle input:checked~.labels::before {
+    opacity: 1;
+  }
+
+  thead {
+    background-color: white;
+    color: rgb(8, 8, 8);
+  }
+  
+  .tbody {
+    color: #001f3f;
+    background-color: whitesmoke;
+  }
+  
+  .tabel-body thead th {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 10;
+  }
+  
+  .table-body thead th {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    z-index: 10;
+    background-color: rgb(252, 248, 248);
+  }
+  
+  .custom-table {
+    background-color: #410a0a;
+    color: white;
+  }
+  
+  .custom-table tr {
+    padding: 1px 2px !important;
+    margin: 1px 2px !important;
+  }
+  
+  .custom-table td {
+    padding: 4px 2px !important;
+    margin: 1px 2px !important;
+  }
+  
+  .custom-table th {
+    padding: 0.5rem 0.4rem !important;
+  }
+  
+  .custom-table input[type="text"] {
+    font-size: small !important;
+    padding: 0.3rem 0.5rem;
+  }
+  
+  .custom-table input[type="checkbox"] {
+    position: unset !important;
+  }
+  
+  //            Scroll bar         ----------------------
+  
+  
+  .scrollbar-body {
+    overflow-y: scroll;
+  }
+  
+  .scrollbar-card-body {
+    overflow-y: scroll;
+    max-height: 550px;
+  }
+  
+  body {
+  
+    overflow-x: hidden;
+    /* Hide horizontal scrollbar */
+  }
+  
+  .force-overflow-body {
+    max-height: fit-content;
+  }
+  
+  .scrollbar {
+    padding-right: 10px;
+    width: 100%;
+    max-height: 640px;
+    overflow-y: scroll;
+  }
+  
+  .force-overflow {
+    min-height: 650px;
+    height: 640px;
+  }
+  
+  
+  .scrollbar-primary::-webkit-scrollbar {
+    width: 12px;
+    background-color: #f5f5f5;
+    height: 10px;
+  }
+  
+  .scrollbar-primary::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #4285f4;
+  }
+  
+  .scrollbar-danger::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #f5f5f5;
+    border-radius: 10px;
+  }
+  
+  .scrollbar-danger::-webkit-scrollbar {
+    width: 12px;
+    background-color: #f5f5f5;
+    height: 10px;
+  }
+  
+  .scrollbar-danger::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #ff3547;
+  }
+  
+  .scrollbar-warning::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #f5f5f5;
+    border-radius: 10px;
+  }
+  
+  .scrollbar-warning::-webkit-scrollbar {
+    width: 12px;
+    background-color: #f5f5f5;
+    height: 10px;
+  }
+  
+  .scrollbar-warning::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #ff8800;
+  }
+  
+  .scrollbar-success::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #f5f5f5;
+    border-radius: 10px;
+  }
+  
+  .scrollbar-success::-webkit-scrollbar {
+    width: 12px;
+    background-color: #f5f5f5;
+    height: 10px;
+  }
+  
+  .scrollbar-success::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #00c851;
+  }
+  
+  .scrollbar-info::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #f5f5f5;
+    border-radius: 10px;
+  }
+  
+  .scrollbar-info::-webkit-scrollbar {
+    width: 12px;
+    background-color: #f5f5f5;
+    height: 10px;
+  }
+  
+  .scrollbar-info::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #33b5e5;
+  }
+  
+  .scrollbar-default::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #f5f5f5;
+    border-radius: 10px;
+  }
+  
+  .scrollbar-default::-webkit-scrollbar {
+    width: 12px;
+    background-color: #f5f5f5;
+    height: 10px;
+  }
+  
+  .scrollbar-default::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #2bbbad;
+  }
+  
+  .scrollbar-secondary::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #f5f5f5;
+    border-radius: 10px;
+  }
+  
+  .scrollbar-secondary::-webkit-scrollbar {
+    width: 12px;
+    background-color: #f5f5f5;
+    height: 10px;
+  }
+  
+  .scrollbar-secondary::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #aa66cc;
+  }
+  
+  //            Scroll bar         ----------------------
+  
+  .nav {
+    flex-wrap: nowrap !important;
+  }
+  
+  .button-animation {
+    box-shadow: 5px 4px 4px grey !important;
+  }
+  
+  .button-animation:active {
+    box-shadow: 0 0 0 white !important;
+    margin: 2px 5px 2px 5px !important;
+  }
+  
+  .login-page {
+    background-image: url(/assets/img/bg-2.png) !important;
+  }
+  
+  
+  .mat-datepicker-toggle {
+    color: rgb(19, 16, 16);
+  }
+  
+  .dpclass {
+    width: 100%;
+  }
+  
+  .mat-form-field-flex {
+    border: rgb(9, 52, 77) 1px;
+  }
+  
+  .MemImg {
+    height: 190px;
+    width: 155px;
+  }
+  
+  .content-header {
+    padding: 0px 0.5rem !important;
+  }
+  
+  .margin-bottom-zero {
+    margin-bottom: 0 !important;
+  }
+  
+  .authorize-approval-host-class {
+    min-width: 100% !important;
+    min-height: 100vh;
+  }
+  
+  .large-modal-Service {
+    max-width: 95% !important;
+  }
+  
+  .form-group .icon {
+    position: absolute;
+    right: 13px;
+    top: 30px;
+    padding: 9px 8px;
+    color: #4409ee;
+    transition: 0.3s;
+  }
+  
+  .tbl-icon {
+    right: 10px;
+    top: 13px;
+    position: absolute;
+    color: #4409ee;
+    transition: 0.3s;
+  }
+  
+  .inputWithIcon {
+    position: relative;
+  }
+  
+  .disableClick {
+    pointer-events: none;
+  }
+  
+  .control-label {
+    font-weight: bold;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-size: 1.0em;
+  }
+  
+  .form-control {
+    border-radius: 10px;
+    font-size: 14px;
+    opacity: 0.9;
+    border: 2px solid black;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif !important;
+  }
+  
+  .form-control:focus {
+    border: 3px solid black !important;
+  }
+  
+  .btnColor {
+    background-color: darkgrey;
+    color: white;
+    border-color: white;
+  }
+  
+  .btnColor:hover {
+    background-color: grey;
+    color: white;
+  }
+  
+  //New Date Picker UI
+  .banquetClass .form-group .icon {
+    position: absolute;
+    right: 13px;
+    top: 30px;
+    padding: 9px 8px;
+    color: #4409ee;
+    transition: 0.3s;
+  }
+  
+  //New 
+  .banquetClass .inputWithIcon {
+    position: relative;
+  }
+  
+  .btnEdit {
+    color: black;
+    border-color: white;
+    background: #2192FF;
+  }
+  
+  .btnEdit:hover {
+    background: #0c0ce8c7;
+    border-color: black;
+    color: black;
+  }
+  
+  .btnDelete {
+    background-color: #ff0000a3;
+    color: white;
+    border-color: white;
+  }
+  
+  .btnDelete:hover {
+    background-color: red;
+    border-color: black !important;
+  }
+  
+  .btnAdd {
+    background-color: #00c100;
+    color: white;
+    border-color: white;
+  }
+  
+  .btnAdd:hover {
+    background-color: #0ad90af5;
+    border-color: black !important;
+  }
+  
+  .btnTblAdd {
+    background-color: #0ad90a8c;
+    color: white;
+    border-color: white;
+  }
+  
+  .btnTblAdd:hover {
+    background-color: #0ad90af5;
+    border-color: black !important;
+  }
+  
+  .btnTblDelete {
+    background-color: #ff0000a3;
+    color: white;
+    border-color: white;
+  }
+  
+  .btnTblDelete:hover {
+    background-color: red;
+    border-color: black !important;
+  }
+  
+  
+  //Grey Scale
+  
+  .banquetClass .border {
+    border: 2px solid !important;
+    border-color: #343a40 !important;
+    border-radius: 6px;
+  }
+  
+  .banquetClass .content-header h1 {
+    padding-top: 6px !important;
+    // color: #2192FF !important;//black !important;
+    // font-size: 34px;
+    background: -webkit-linear-gradient(-45deg, #28292ade 25%, grey 63%);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .btnSubmit {
+    color: black;
+    border-color: white;
+    border-radius: 35px;
+    background: linear-gradient(-45deg, #b7c0bd 20%, #6d7e86 68%, grey 63%);
+  }
+  
+  .btnSubmit:hover {
+    background: linear-gradient(-45deg, grey 37%, #6d7e86 91%, #b7c0bd 52%);
+    border-color: black;
+    color: black;
+  }
+  
+  .btnBack {
+    color: black;
+    border-color: white;
+    border-radius: 35px;
+    background: linear-gradient(-45deg, #b7c0bd 20%, #6d7e86 68%, grey 63%);
+  }
+  
+  .btnBack:hover {
+    background: linear-gradient(-45deg, grey 37%, #6d7e86 91%, #b7c0bd 52%);
+    border-color: black;
+    color: black;
+  }
+  
+  .btnClear {
+    color: black;
+    border-color: white;
+    border-radius: 35px;
+    background: linear-gradient(-45deg, #b7c0bd 20%, #6d7e86 68%, grey 63%);
+  }
+  
+  .btnClear:hover {
+    background: linear-gradient(-45deg, grey 37%, #6d7e86 91%, #b7c0bd 52%);
+    border-color: black;
+    color: black;
+  }
+  
+  .backgroundImg {
+    // background-image: url("./../../../../../../assets/img/background_png.png");
+    background-repeat: no-repeat;
+    background-position: right top;
+    margin-right: 0px;
+    background-attachment: fixed;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .banquetClass .legend1 {
+    font-size: 1.5em;
+    outline: auto;
+    outline-color: #2192FF;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif !important;
+  }
+  
+  
+  //Table
+  .banquetClass table {
+    border-collapse: collapse;
+    border-radius: 1em;
+    overflow: hidden;
+  }
+  
+  .banquetClass thead tr {
+    background-color: #dde3ea;
+    // background-color: transparent !important; //Background Image
+    color: black;
+    border-color: blue;
+    border-style: groove !important;
+  }
+  
+  .banquetClass table thead th {
+    font-weight: bold;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-size: 1.5em;
+    vertical-align: inherit;
+    border-style: groove;
+    background: linear-gradient(-45deg, #A7FFE4 75%, #2192FF 123%, blue 86%);
+    border-color: blue;
+    color: black !important;
+  }
+  
+  .banquetClass td {
+    border-style: groove;
+  }
+  
+  .banquetClass .tableBtn i {
+    height: 20px;
+    align-content: center;
+  }
+  
+  .banquetClass .footerAlign {
+    margin: 0px 32%;
+  }
+  
+  .frmImage {
+    border: 2px #0e0d0d;
+  }
+  
+  
+  
+  
+  .toggleCheckBox {
+    --width: 80px;
+    --height: calc(var(--width) / 3);
+  
+    position: relative;
+    display: inline-block;
+    width: var(--width);
+    height: var(--height);
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+    border-radius: var(--height);
+    cursor: pointer;
+  }
+  
+  .toggleCheckBox input {
+    display: none;
+  }
+  
+  .toggleCheckBox .slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--height);
+    background-color: rgb(115, 23, 23);
+    transition: all 0.4s ease-in-out;
+  }
+  
+  .toggleCheckBox .slider::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(var(--height));
+    height: calc(var(--height));
+    border-radius: calc(var(--height) / 2);
+    background-color: #fff;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
+    transition: all 0.4s ease-in-out;
+  }
+  
+  .toggleCheckBox input:checked+.slider {
+    background-color: #337642;
+  }
+  
+  .toggleCheckBox input:checked+.slider::before {
+    transform: translateX(calc(var(--width) - var(--height)));
+  }
+  
+  .toggleCheckBox .labels {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 100%;
+    height: 100%;
+    font-size: 12px;
+    font-family: sans-serif;
+    transition: all 0.4s ease-in-out;
+  }
+  
+  .toggleCheckBox .labels::after {
+    content: attr(data-off);
+    position: absolute;
+    right: 20px;
+    color: #f7f0f0;
+    opacity: 1;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+    transition: all 0.4s ease-in-out;
+  }
+  
+  .toggleCheckBox .labels::before {
+    content: attr(data-on);
+    position: absolute;
+    left: 5px;
+    color: #ffffff;
+    opacity: 0;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
+    transition: all 0.4s ease-in-out;
+  }
+  
+  .toggleCheckBox input:checked~.labels::after {
+    opacity: 0;
+  }
+  
+  .toggleCheckBox input:checked~.labels::before {
+    opacity: 1;
+  }
+  
+  .Customfieldset {
+    padding: 30px 40px !important;
+    margin: auto;
+  }
+  
+  .text-upper-case {
+    text-transform: uppercase;
+  }
+  
+  .paddingCenter {
+    padding: 0px !important;
+  }
+  
+  //Material CSS
+  
+  //Check box 
+  .checkbox-section {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    height: 60px;
+  }
+  
+  .checkbox-margin {
+    margin: 0 10px;
+  }
+  
+  //Radio
+  .radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+    align-items: flex-start;
+  }
+  
+  .radio-button {
+    margin: 5px;
+  }
+  
+  
+  .btn-mat-submit {
+    color: black !important;
+    border-color: black !important;
+    background-color: rgb(235, 235, 243) !important;
+  }
+  
+  .btn-mat-submit:hover {
+    background: linear-gradient(-45deg, blue 12%, #2192FF 48%, #A7FFE4 82%) !important;
+    border-color: black !important;
+    color: black !important;
+  }
+  
+  .btn-mat-back {
+    color: black !important;
+    border-color: black !important;
+    background-color: rgb(235, 235, 243) !important;
+  }
+  
+  .btn-mat-back:hover {
+    background: linear-gradient(-45deg, blue 12%, #2192FF 48%, #A7FFE4 82%) !important;
+    border-color: black !important;
+    color: black !important;
+  }
+  
+  .btn-mat-clear {
+    color: black !important;
+    border-color: black !important;
+    background-color: rgb(235, 235, 243) !important;
+  }
+  
+  .btn-mat-clear:hover {
+    background: linear-gradient(-45deg, blue 12%, #2192FF 48%, #A7FFE4 82%) !important;
+    border-color: black !important;
+    color: black !important;
+  }
+  
+  .btn-mat-close {
+    color: black !important;
+    border-color: black !important;
+    background-color: rgb(235, 235, 243) !important;
+  }
+  
+  .btn-mat-close:hover {
+    background: linear-gradient(-45deg, blue 12%, #2192FF 48%, #A7FFE4 82%) !important;
+    border-color: black !important;
+    color: black !important;
+  }
+  
+  .btn-mat-export {
+    color: black !important;
+    border-color: black !important;
+    background-color: rgb(235, 235, 243) !important;
+  }
+  
+  .btn-mat-export:hover {
+    background: linear-gradient(-45deg, blue 12%, #2192FF 48%, #A7FFE4 82%) !important;
+    border-color: black !important;
+    color: black !important;
+  }
+  
+  input[type=time] {
+    height: 12px;
+    padding: 6px 12px;
+    box-sizing: border-box;
+    width: 100%;
+  }
+  
+  mat-form-field input[type=time]::-webkit-calendar-picker-indicator {
+    font-size: 14px;
+  }
+  
+  .popupMaxHeight {
+    max-height: 650px;
+    overflow: auto;
+  }
+  
+  .stickyBackground {
+    background-color: aliceblue;
+  }
+  
+  table .mat-form-field-wrapper {
+    margin: 0;
+    padding-bottom: 0;
+  }
+  
+  .btn-mat-datepicker {
+    background-color: rgb(109, 109, 245);
+    color: white;
+    border-color: black;
+    margin-right: 3px;
+  }
+  
+  .radio-group {
+    margin: 0px;
+  }
+  
+  .btnScan {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+    box-shadow: none;
+    margin-top: 3px;
+    padding: 12px 12px;
+    position: absolute;
+  }
+
+  .row{
+    display: flex;
+
+    mat-form-field {
+        width: 100%;
+    }
+}
+
+fieldset {
+  legend {
+  color: #ffc107;
+  }
+    padding: 20px;
+    border: solid 1px  rgb(216, 134, 41);
+    width: 100%;
+  
+  }
+
+h1{
+    text-align: left;
+    color: orange;
+}
+
+.content{
+    padding-top: 10px;
+}
+.action{
+    padding: 12px 1%;
+    button {
+        flex: 1;
+    }
+}
+
+.Adjust{
+    margin-top: 14px;
+}
+
+ .Background {
+    background-color: #7bf3ed;
+  }
+  
+  mat-checkbox ::ng-deep .mat-checkbox-inner-container {width: 30px;height: 30px;margin: 12px;}
+
+  table {
+    width: 100%;
+  }
+  
+  table button {
+    margin-left: 2px;
+  }
+  // .modal-backdrop {
+  //   z-index: -1 !important;
+  // }
+
+  div.modal div.modal-backdrop {
+    z-index: -1055 !important;
+}
+
+
+ngb-modal-backdrop {
+  z-index: -1055 !important;
+}
+mat-datepicker-popup {
+  z-index: -2055 !important;
+}
+
+legend {
+
+  margin-bottom: 6px;
+  width: auto;
+
+    background-color: #67604a;
+    padding: 3px 6px;
+  font-weight: bold;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font-size: 1.0em;
+
+}
+
+.modal-body {
+  position: relative;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  padding: 1rem;
+}
+
+.btnClss {
+   background-color: rgb(41, 124, 41);
+    color: white;
+    border-radius: 26px;
+    // width: 67px;
+    // text-align: center;
+}
+
+ .btndeleteClss {
+   color: white;
+   border-radius: 26px;
+   position: absolute;
+   top: 0;
+   bottom: 0;
+}
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';

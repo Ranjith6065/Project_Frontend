@@ -1,0 +1,84 @@
+.row{
+    display: flex;
+
+    mat-form-field {
+        width: 100%;
+    }
+}
+
+fieldset {
+    legend {
+      color: rgb(211, 140, 59)
+    }
+    padding: 20px;
+    border: solid 1px  rgb(216, 134, 41);
+    width: 100%;
+  
+  }
+
+h1{
+    text-align: left;
+    color: orange;
+}
+
+.content{
+    padding-top: 10px;
+}
+.action{
+    padding: 12px 1%;
+    button {
+        flex: 1;
+    }
+}
+
+.Adjust{
+    margin-top: 14px;
+}
+
+ .Background {
+    background-color: #7bf3ed;
+  }
+  
+  mat-checkbox ::ng-deep .mat-checkbox-inner-container {width: 30px;height: 30px;margin: 12px;}
+
+  table {
+    width: 100%;
+  }
+  
+  table button {
+    margin-left: 2px;
+  }
+  // .modal-backdrop {
+  //   z-index: -1 !important;
+  // }
+
+  div.modal div.modal-backdrop {
+    z-index: -1055 !important;
+}
+
+legend {
+
+  margin-bottom: 6px;
+  width: auto;
+
+  font-weight: bold;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font-size: 1.0em;
+
+}
+
+.btnClss {
+   background-color: rgb(41, 124, 41);
+    color: white;
+    border-radius: 26px;
+    // width: 67px;
+    // text-align: center;
+}
+
+ .btndeleteClss {
+   color: white;
+   border-radius: 26px;
+   position: absolute;
+   top: 0;
+   bottom: 0;
+}

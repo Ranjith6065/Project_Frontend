@@ -1,0 +1,53 @@
+<!-- <form [formGroup]="myGroup"> -->
+    <mat-card>
+        <!-- <form #postForm="ngForm"></form> -->
+        <mat-card-title>
+          <h1 class="center">POS Master</h1>
+        </mat-card-title>
+      
+        <mat-card-content>
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <fieldset>
+                    <div class="row">
+          
+                      <div class="col-md-6">
+                        <mat-form-field appearance="outline">
+                          <mat-label>POS Code</mat-label>
+                          <input matInput required type="text" maxlength="20" minlength="2"  placeholder="Ex:FC"
+                            pattern="[A-Za-z0-9]*" [(ngModel)]="model.PosCode" name="PosCode"
+                            (blur)="onblurUOM($event,'code')" />
+                        </mat-form-field>
+                      </div>
+          
+                      <div class="col-md-6">
+                        <mat-form-field appearance="outline">
+                          <mat-label>POS Description</mat-label>
+                          <input matInput required type="text" minlength="3" maxlength="50" pattern="[ A-Za-z0-9]*" placeholder="Ex:Food Court"
+                            [(ngModel)]="model.Description" name="Description" (blur)="onblurUOM($event,'desc')" />
+                        </mat-form-field>
+                      </div>
+          
+                    </div>
+                </fieldset>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      
+      
+      
+        <mat-divider></mat-divider>
+        <mat-card-actions class="action">
+          <button mat-stroked-button class="px-5" color="primary" type="submit" (click)="onSubmit()">Submit</button>
+          <!-- <button mat-stroked-button class="px-5" color="accent" *ngIf="IsUpdate == 'true' && IsVoid == 'false'" type="button"
+            (click)="onVoid()">Void</button>
+          <button mat-stroked-button class="px-5" color="accent" *ngIf="IsUpdate == 'true' && IsVoid == 'true'" type="button"
+            (click)="onVoid()">Unvoid</button> -->
+          <button mat-stroked-button class="px-5" color="accent" type="button" (click)="onClear()">Clear</button>
+          <button mat-stroked-button class="px-5" color="accent" type="button" (click)="onClosePopup()">Close</button>
+        </mat-card-actions>
+      </mat-card>
+      <!-- </form> -->
+      

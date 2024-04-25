@@ -1,0 +1,43 @@
+<nav class="navbar bg-body-tertiary">
+    <div class="container">
+    </div>
+  </nav>
+  <div class="container">
+      <div class="row">
+        <!-- <div class="bg-image">
+
+        </div> -->
+        <div class="bg-image">
+            <div class="row">
+            <div class="col-md-3 px-5 ">
+            </div>
+            <div class="col-md-6 mt-5">
+             <div class="content px-5 mt-5">
+                <h2 style="margin-left: 30%;">LOGIN</h2>
+                <div class="example-container">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Email ID</mat-label>
+                      <input matInput required type="email"  [(ngModel)]="model.Email"  pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$" (blur)="ValidateEmail($event)"  required>
+                    </mat-form-field>
+                  </div>    
+                  
+                  <div class="example-container">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Password</mat-label>
+                      <input matInput [type]="showPassword ? 'text' : 'password'"   [(ngModel)]="model.Password"  required>
+                      <mat-icon matSuffix (click)="togglePasswordVisibility()">
+                          {{showPassword?'visibility_off':'visibility'}}
+                      </mat-icon>               
+                     </mat-form-field>
+                  </div>     
+    
+                <button mat-raised-button class="mb-3" (click)="onSubmit()">LOGIN</button>
+                <p>Don't Have a Account ? <a href="RegisterPage">signup</a> </p>
+             </div>
+    
+            </div>
+        </div>
+        </div>
+      </div>
+  </div>
+  
